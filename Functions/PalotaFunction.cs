@@ -23,7 +23,7 @@ namespace Palota.Assessment.Countries.Functions
             ILogger logger)
         {
             //Gets all countries
-            var all = await RESTCountriesAPI.GetAllCountriesAsync();
+            var all = await RESTCountriesAPI.GetAllCountriesAsync(); //gets and returns all information about the country
             List<string> countries = all.Select(c => c.Name).ToList();
         
 
@@ -35,18 +35,33 @@ namespace Palota.Assessment.Countries.Functions
             return new OkObjectResult(countries);
         }
 
-    //    [FunctionName("GetASingleCountryByIso3Code")]
-    //    public static async Task<IActionResult> GetASingleCountryByIso3Code(
-    //        [HttpTrigger(AuthorizationLevel.Function, "get", Route = "countries/{iso3Code}")] HttpRequest request,
-    //        ILogger logger, string iso3Code)
-    //    {
-    //        var countries = new Countries();
+      //  [FunctionName("GetASingleCountryByIso3Code")]
+      //public static async Task<IActionResult> GetASingleCountryByIso3Code(
+      //      [HttpTrigger(AuthorizationLevel.Function, "get", Route = "countries/{iso3Code}")] HttpRequest request,
+      //     ILogger logger, string iso3Code)
+      // {
+      //      var data = @"{
+      //           ""name"": "",
+      //           ""iso3Code"": ""ZAF"",
+      //           ""capital"": ""Pretoria"",
+      //           ""subregion"": ""Southern Africa"",
+      //           ""region"": ""Africa"",
+      //           ""population"": 59308690,
+      //       ""location"": {           
+      //           ""lattitude"": -29.0,
+      //           ""longitude"": 24.0
+      //                   },
+      //           ""demonym"": ""South African"",
+      //           ""nativeName"": ""South Africa"",
+      //           ""numericCode"": ""710"",
+      //           ""flag"": ""https://flagcdn.com/za.svg""
+      // }";
 
-    //        // Get book by id from database..
+      //      // Get book by id from database..
 
-    //        logger.LogInformation($"Get country {countries.iso3Code} from database.");
+      //      logger.LogInformation($"Get country  from database.");
 
-    //        return new OkObjectResult(countries);
-    //    }
+      //  //   return new OkObjectResult(countries);
+      //}
     }
 }
