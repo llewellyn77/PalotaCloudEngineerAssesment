@@ -37,8 +37,9 @@ namespace Palota.Assessment.Countries.Functions
             //var result = await RESTCountriesAPI.GetCountriesByContinentAsync("africa");
 
             // Get all country names...
-
+            Console.Write("Status Code : 200");
             logger.LogInformation($"Getting all countries from rest Countries api succesfully");
+            
 
             return new OkObjectResult(countries);
         }
@@ -75,7 +76,7 @@ namespace Palota.Assessment.Countries.Functions
                 //    ? (ActionResult)new OkObjectResult($"{result}")
                 //    : new BadRequestObjectResult("Please pass a name of the continent the query string or in the request body");
 
-
+                Console.Write("Status Code : 200");
                 logger.LogInformation($"Searched continent succefully");
                 return new OkObjectResult(SearchContinentResults);
             }
@@ -114,7 +115,7 @@ namespace Palota.Assessment.Countries.Functions
                 //    ? (ActionResult)new OkObjectResult($"{result}")
                 //    : new BadRequestObjectResult("Please pass a name of the continent the query string or in the request body");
 
-
+                Console.Write("Status Code : 200");
                 logger.LogInformation($"Searched with iso3Code succefully");
                 return new OkObjectResult(Searchiso3CodeResults);
 
@@ -156,7 +157,7 @@ namespace Palota.Assessment.Countries.Functions
                 //    ? (ActionResult)new OkObjectResult($"{result}")
                 //    : new BadRequestObjectResult("Please pass a name of the continent the query string or in the request body");
 
-
+                Console.Write("Status Code : 200");
                 logger.LogInformation($"Searched with iso3Code succesfully");
                 return new OkObjectResult(Searchiso3CodeResults);
 
