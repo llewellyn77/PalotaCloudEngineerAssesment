@@ -13,6 +13,10 @@ namespace Palota.Assessment.Countries.Models
 
     public class Iso3CodeSearch
     {
+        //                    //
+        // RESPONSE STRUCTURE //
+        //                    //
+
         //Gets and sets for custom response
         [JsonProperty("name")]
         public string name { get; set; }

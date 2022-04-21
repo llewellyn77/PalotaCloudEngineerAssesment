@@ -18,6 +18,12 @@ namespace Palota.Assessment.Countries.Functions
 {
     public static class PalotaCloudEngineerAssesmentFunctions
     {
+        //                //
+        // FUNCTIONS CODE //
+        //                //
+
+
+
         [FunctionName("ListAllCountries")]
         public static async Task<IActionResult> ListAllCountries(
             [HttpTrigger(AuthorizationLevel.Function, "get", Route = "countries")] HttpRequest request,
