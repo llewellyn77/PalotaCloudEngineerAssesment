@@ -32,7 +32,7 @@ namespace Palota.Assessment.Countries.Functions
 
             // Get all country names...
 
-            logger.LogInformation($"Getting all countries from rest Countries api");
+            logger.LogInformation($"Getting all countries from rest Countries api succesfully");
 
             return new OkObjectResult(countries);
         }
@@ -53,18 +53,29 @@ namespace Palota.Assessment.Countries.Functions
             dynamic data = JsonConvert.DeserializeObject(requestBody);
             continentName = continentName ?? data?.nameOfContinent;
             var result = await RESTCountriesAPI.GetCountriesByContinentAsync(continentName);
-            List<string> SearchContinentResults = result.Select(d=> d.Name).ToList();
+            //  Error handling
+            
+            
+                List<string> SearchContinentResults = result.Select(d => d.Name).ToList();
+            if (SearchContinentResults == null)
+            {
 
-            //return continentName != null
-            //    ? (ActionResult)new OkObjectResult($"{result}")
-            //    : new BadRequestObjectResult("Please pass a name of the continent the query string or in the request body");
+                logger.LogInformation($"404 Error Code");
+                return new OkObjectResult($"The continent with name {continentName} could not be found.");
+            }
+            else
+            {
+                //return continentName != null
+                //    ? (ActionResult)new OkObjectResult($"{result}")
+                //    : new BadRequestObjectResult("Please pass a name of the continent the query string or in the request body");
 
 
-            logger.LogInformation($"Search continent");
-            return new OkObjectResult(SearchContinentResults);
+                logger.LogInformation($"Searched continent succefully");
+                return new OkObjectResult(SearchContinentResults);
+            }
         }
 
-        //List all countries given iso3Code search
+        //List single country given iso3Code search
         [FunctionName("ListSingleCountryiso3Code")]
         public static async Task<IActionResult> GetASingleCountryByIso3Code(
            [HttpTrigger(AuthorizationLevel.Function, "get", Route = "countries/{iso3Code}")] HttpRequest request,
@@ -81,15 +92,69 @@ namespace Palota.Assessment.Countries.Functions
             dynamic data = JsonConvert.DeserializeObject(requestBody);
             iso3Code = iso3Code ?? data?.nameOfContinent;
             var result = await RESTCountriesAPI.GetCountriesByCodesAsync(iso3Code);
+           
+
+             List<string> Searchiso3CodeResults = result.Select(d => d.Name).ToList();
+            if (Searchiso3CodeResults == null)
+            {
+
+                logger.LogInformation($"404 Error Code");
+                return new OkObjectResult($"The country with ISO 3166 Alpha 3 code {iso3Code} could not be found.");
+            }
+            else
+            {
+
+                //return continentName != null
+                //    ? (ActionResult)new OkObjectResult($"{result}")
+                //    : new BadRequestObjectResult("Please pass a name of the continent the query string or in the request body");
+
+
+                logger.LogInformation($"Searched with iso3Code succefully");
+                return new OkObjectResult(Searchiso3CodeResults);
+
+            }
+
+
+        }
+
+        //List all countries bordering
+        [FunctionName("GetListOfBorderingCountriesWithIso3Code")]
+        public static async Task<IActionResult> GetListOfBorderingCountriesWithIso3Code(
+           [HttpTrigger(AuthorizationLevel.Function, "get", Route = "countries/{iso3Code}/borders")] HttpRequest request,
+           ILogger logger)
+        {
+            //Gets all countries from specific search
+            string iso3Code = request.Query["iso3Code"];
+
+            string requestBody = String.Empty;
+            using (StreamReader streamReader = new StreamReader(request.Body))
+            {
+                requestBody = await streamReader.ReadToEndAsync();
+            }
+            dynamic data = JsonConvert.DeserializeObject(requestBody);
+            iso3Code = iso3Code ?? data?.nameOfContinent;
+            var result = await RESTCountriesAPI.GetCountriesByCodesAsync(iso3Code);
+
+
             List<string> Searchiso3CodeResults = result.Select(d => d.Name).ToList();
+            if (Searchiso3CodeResults == null)
+            {
 
-            //return continentName != null
-            //    ? (ActionResult)new OkObjectResult($"{result}")
-            //    : new BadRequestObjectResult("Please pass a name of the continent the query string or in the request body");
+                logger.LogInformation($"404 Error Code");
+                return new OkObjectResult($"The country with ISO 3166 Alpha 3 code {iso3Code} could not be found.");
+            }
+            else
+            {
+
+                //return continentName != null
+                //    ? (ActionResult)new OkObjectResult($"{result}")
+                //    : new BadRequestObjectResult("Please pass a name of the continent the query string or in the request body");
 
 
-            logger.LogInformation($"Search with iso3Code");
-            return new OkObjectResult(Searchiso3CodeResults);
+                logger.LogInformation($"Searched with iso3Code succesfully");
+                return new OkObjectResult(Searchiso3CodeResults);
+
+            }
         }
 
 
